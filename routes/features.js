@@ -20,6 +20,7 @@ router.get('/geometryType/:type', function(req, res, next) {
      * MongoDB Spatial Query Operators: https://docs.mongodb.com/v3.2/reference/operator/query-geospatial/
      * GeoJSON Specification: http://geojson.org/geojson-spec.html
      */
+    'geometry.type': geometryType
   };
 
   if (_.isEmpty(query)) {
@@ -60,6 +61,15 @@ router.get('/nearestStop', function(req, res, next) {
      * MongoDB Spatial Query Operators: https://docs.mongodb.com/v3.2/reference/operator/query-geospatial/
      * GeoJSON Specification: http://geojson.org/geojson-spec.html
      */
+     'geometry.type': 'Point',
+      geometry: {
+        $near: {
+          $geometry: {
+            type: 'Point',
+            coordinates: [ longitude, latitude ]
+          }
+        }
+      }
   };
 
   if (_.isEmpty(query)) {
@@ -97,6 +107,14 @@ router.get('/within', function(req, res, next) {
      * MongoDB Spatial Query Operators: https://docs.mongodb.com/v3.2/reference/operator/query-geospatial/
      * GeoJSON Specification: http://geojson.org/geojson-spec.html
      */
+     geometry: {
+       $geoWithin: {
+         $geometry: {
+           type: 'Polygon',
+           coordinates: [ coordinates ]
+         }
+       }
+     }
   };
 
   if (_.isEmpty(query)) {
