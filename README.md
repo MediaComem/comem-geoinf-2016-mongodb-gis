@@ -18,5 +18,5 @@
 
 ## Configuration
 
-* The application connects to the following database by default: `mongodb://localhost:27017/comem-geoinf-2016-nosql-gis`.
+* The application connects to the following database by default: `mongodb://localhost:27017/mongodb-gis`.
   Use the `$DATABASE_URL` environment variable to specify another connection URL.

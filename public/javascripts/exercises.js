@@ -1,17 +1,23 @@
 (function() {
 
-  var app = angular.module('comem-geoinf-2016-mongodb-gis');
+  var app = angular.module('mongodb-gis');
 
   app.component('exercisesList', {
     templateUrl: '/templates/exercises.html',
     controller: 'ExercisesListCtrl',
     controllerAs: 'ctrl',
-    bindings: {
-    }
+    bindings: {}
   });
 
   app.controller('ExercisesListCtrl', function(ExercisesService) {
-    this.exercises = ExercisesService.exercises;
+
+    var ctrl = this;
+
+    ctrl.exercises = ExercisesService.exercises;
+
+    ctrl.accordion = {
+      ex1: true
+    };
   });
 
   app.component('exerciseView', {
@@ -19,26 +25,44 @@
     controller: 'ExerciseViewCtrl',
     controllerAs: 'ctrl',
     bindings: {
-      exercise: '='
+      exercise: '<',
+      isOpen: '<'
     }
   });
 
   app.controller('ExerciseViewCtrl', function($compile, $element, $scope) {
 
-    var exercise = this.exercise;
+    var exercise = this.exercise,
+        template = '<' + exercise.component + ' exercise="ctrl.exercise" is-open="ctrl.isOpen"></' + exercise.component + '>';
 
-    var template = '<' + exercise.component + ' exercise="exercise"></' + exercise.component + '>';
-
-    var scope = $scope.$new();
-    scope.exercise = exercise;
-
-    $element.append($compile(template)(scope));
+    $element.append($compile(template)($scope));
   });
 
-  app.factory('ExercisesService', function() {
+  app.factory('ExercisesService', function(MapService) {
 
     var service = {
       exercises: []
+    };
+
+    service.onExerciseStarted = function(ctrl, callback) {
+
+      var existingCallback = ctrl.$onChanges;
+
+      ctrl.$onChanges = function(changes) {
+        if (existingCallback) {
+          existingCallback(changes);
+        }
+
+        if (changes.isOpen && changes.isOpen.currentValue) {
+          MapService.ready().then(function() {
+            callback(changes);
+          });
+        }
+      };
+    };
+
+    service.isExerciseRunning = function(ctrl) {
+      return ctrl.isOpen;
     };
 
     return service;

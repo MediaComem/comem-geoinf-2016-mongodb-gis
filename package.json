@@ -1,5 +1,5 @@
 {
-  "name": "comem-geoinf-2016-nosql-gis",
+  "name": "mongodb-gis",
   "version": "0.0.0",
   "private": true,
   "scripts": {

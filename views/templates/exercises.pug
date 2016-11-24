@@ -1,3 +1,3 @@
 uib-accordion
-  .panel-default(ng-repeat='exercise in ctrl.exercises', uib-accordion-group, heading='{{ exercise.title }}', is-open='true')
-    exercise-view(exercise='exercise')
+  .panel-default(ng-repeat='exercise in ctrl.exercises', uib-accordion-group, heading='{{ exercise.title }} (Exercise {{ exercise.number }})', is-open='ctrl.accordion["ex" + exercise.number]')
+    exercise-view(exercise='exercise', is-open='ctrl.accordion["ex" + exercise.number]')

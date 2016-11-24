@@ -5,3 +5,10 @@ a {
   height: 400px;
   width: 100%;
 }
+.panel-body :last-child,
+.list-group-item :last-child {
+  margin-bottom: 0;
+}
+.btn-group-justified {
+  margin-bottom: 1em;
+}
