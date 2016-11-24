@@ -123,25 +123,25 @@
   app.constant('mapStyles', {
     Point: new ol.style.Style({
       image: new ol.style.Circle({
-        radius: 5,
-        fill: new ol.style.Fill({ color: 'blue' }),
-        stroke: new ol.style.Stroke({color: 'red', width: 1})
+        radius: 4,
+        fill: new ol.style.Fill({ color: '#800000' }),
+        stroke: new ol.style.Stroke({color: '#cc0000', width: 1})
       })
     }),
     MultiLineString: new ol.style.Style({
       stroke: new ol.style.Stroke({
-        color: 'green',
+        color: '#3366ff',
         width: 2
       })
     }),
     Polygon: new ol.style.Style({
       stroke: new ol.style.Stroke({
-        color: 'blue',
+        color: '00cc66',
         lineDash: [4],
         width: 3
       }),
       fill: new ol.style.Fill({
-        color: 'rgba(0, 0, 255, 0.1)'
+        color: 'rgba(0, 204, 102, 0.1)'
       })
     })
   });
