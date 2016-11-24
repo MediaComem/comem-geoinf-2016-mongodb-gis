@@ -11,7 +11,7 @@
       $log.debug('Fetching features of geometry type ' + geometryType);
 
       return $http({
-        url: '/api/features/geometryType/' + geometryType
+        url: '/api/geometryType/' + geometryType
       }).then(extractResponseData);
     };
 
@@ -20,7 +20,7 @@
       $log.debug('Fetching stop nearest to ' + JSON.stringify(lonLat));
 
       return $http({
-        url: '/api/features/nearestStop',
+        url: '/api/nearestStop',
         params: {
           latitude: lonLat[1],
           longitude: lonLat[0]
@@ -33,7 +33,7 @@
       $log.debug('Fetching features within ' + JSON.stringify(geometry));
 
       return $http({
-        url: '/api/features/within',
+        url: '/api/within',
         params: {
           coordinates: JSON.stringify(geometry.coordinates[0])
         }

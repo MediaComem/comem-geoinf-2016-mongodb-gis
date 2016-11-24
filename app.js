@@ -1,16 +1,17 @@
-var express = require('express');
-var path = require('path');
-var favicon = require('serve-favicon');
-var logger = require('morgan');
-var cookieParser = require('cookie-parser');
-var bodyParser = require('body-parser');
-var Promise = require('bluebird');
+var _ = require('lodash'),
+    bodyParser = require('body-parser'),
+    cookieParser = require('cookie-parser'),
+    express = require('express'),
+    favicon = require('serve-favicon'),
+    glob = require('glob'),
+    logger = require('morgan'),
+    path = require('path'),
+    Promise = require('bluebird');
 
-var initDb = require('./lib/init-db');
-var loadData = require('./lib/load-data');
+var initDb = require('./lib/init-db'),
+    loadData = require('./lib/load-data');
 
 var views = require('./routes/views');
-var api = require('./routes/api');
 
 var app = express();
 
@@ -27,7 +28,15 @@ app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/api', api);
+var apiDir = path.join(__dirname, 'routes', 'api'),
+    apiFiles = glob.sync('**/*.js', {
+      cwd: apiDir
+    });
+
+_.each(apiFiles, function(file) {
+  app.use('/api', require(path.join(apiDir, file)));
+})
+
 app.use('/', views);
 
 // catch 404 and forward to error handler
