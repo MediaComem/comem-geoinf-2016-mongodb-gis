@@ -6,7 +6,7 @@ var _ = require('lodash'),
 
 var root = path.resolve(path.join(__dirname, '..'));
 
-router.get('/geometryType/:type', function(req, res, next) {
+router.get('/features/geometryType/:type', function(req, res, next) {
 
   var featuresCol = app.db.collection('features');
 
@@ -34,7 +34,7 @@ router.get('/geometryType/:type', function(req, res, next) {
   }).catch(next);
 });
 
-router.get('/nearestStop', function(req, res, next) {
+router.get('/features/nearestStop', function(req, res, next) {
 
   var featuresCol = app.db.collection('features');
 
@@ -80,7 +80,7 @@ router.get('/nearestStop', function(req, res, next) {
   }).catch(next);
 });
 
-router.get('/within', function(req, res, next) {
+router.get('/features/within', function(req, res, next) {
 
   var featuresCol = app.db.collection('features');
 

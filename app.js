@@ -9,8 +9,8 @@ var Promise = require('bluebird');
 var initDb = require('./lib/init-db');
 var loadData = require('./lib/load-data');
 
-var index = require('./routes/index');
-var features = require('./routes/features');
+var views = require('./routes/views');
+var api = require('./routes/api');
 
 var app = express();
 
@@ -27,8 +27,8 @@ app.use(cookieParser());
 app.use(require('stylus').middleware(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/api/features', features);
+app.use('/api', api);
+app.use('/', views);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

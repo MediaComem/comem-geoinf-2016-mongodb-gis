@@ -3,7 +3,13 @@
   var app = angular.module('mongodb-gis');
 
   app.component('exercisesList', {
-    templateUrl: '/templates/exercises.html',
+    template: `
+      <uib-accordion>
+        <div class='panel-default' ng-repeat='exercise in ctrl.exercises' uib-accordion-group heading='{{ exercise.title }} (Exercise {{ exercise.number }})' is-open='ctrl.accordion["ex" + exercise.number]'>
+          <exercise-view exercise='exercise' is-open='ctrl.accordion["ex" + exercise.number]'></exercise-view>
+        </div>
+      </uib-accordion>
+    `,
     controller: 'ExercisesListCtrl',
     controllerAs: 'ctrl',
     bindings: {}
