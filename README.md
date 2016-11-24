@@ -47,4 +47,4 @@ When running like this, the application will automatically restart when you edit
   Use the `$PORT` environment variable to specify another port to bind to.
 
 * The application connects to the following database by default: `mongodb://localhost:27017/mongodb-gis`.
-  Use the `$DATABASE_URL` environment variable to specify another connection URL.
+  Use the `$MONGODB_URI` or `$DATABASE_URL` environment variable to specify another connection URL.
