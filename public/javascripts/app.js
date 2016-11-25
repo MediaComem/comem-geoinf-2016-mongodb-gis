@@ -1,6 +1,9 @@
 (function() {
   angular.module('mongodb-gis', [
+    // Angular modules.
     'ngAnimate',
+    // Third-party modules.
+    'angular-loading-bar',
     'ui.bootstrap'
   ]);
 })();
