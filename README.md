@@ -6,11 +6,17 @@
 
 ## Getting started
 
-* Install [Node.js 6.x](https://nodejs.org/en/).
+* Install [Git](https://git-scm.com/downloads)
+
+* Install [Node.js 6.x](https://nodejs.org/en/)
 
 * Install and run [MongoDB 3.x](https://www.mongodb.com/download-center#community)
 
-* Clone this repository.
+* Clone this repository:
+
+  ```
+  git clone https://github.com/MediaComem/comem-geoinf-2016-mongodb-gis.git
+  ```
 
 * Open a terminal in the repository and run the following commands:
 
@@ -34,7 +40,7 @@ Open a terminal in the repository and run the following commands (you may have t
 
 ```
 npm install -g nodemon
-nodemon bin/www
+DEBUG=mongodb-gis:* nodemon bin/www
 ```
 
 When running like this, the application will automatically restart when you edit a JavaScript file.

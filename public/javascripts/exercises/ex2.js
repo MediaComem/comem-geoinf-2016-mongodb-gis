@@ -31,7 +31,7 @@
     `;
   }
 
-  function controller(ExercisesService, FeaturesApiService, GeoService, MapService) {
+  function controller(ExercisesService, GeoService, $http, $log, MapService) {
 
     var ctrl = this,
         nearestStopMapFeatures;
@@ -44,7 +44,11 @@
       delete ctrl.nearestStop;
       nearestStopMapFeatures = null;
 
-      FeaturesApiService.loadFeaturesByGeometryType('MultiLineString').then(MapService.addFeatures);
+      $http({
+        url: '/api/geometryType/MultiLineString'
+      }).then(function(res) {
+        MapService.addFeatures(res.data);
+      });
     });
 
     MapService.events.$on('click', function(event, clickEvent) {
@@ -69,8 +73,18 @@
     }
 
     function loadNearestStop() {
-      return FeaturesApiService.loadStopNearestTo(ctrl.startingPoint.lonLat).then(function(stop) {
 
+      $log.debug('Fetching stop nearest to ' + JSON.stringify(ctrl.startingPoint.lonLat));
+
+      return $http({
+        url: '/api/nearestStop',
+        params: {
+          latitude: ctrl.startingPoint.lonLat[1],
+          longitude: ctrl.startingPoint.lonLat[0]
+        }
+      }).then(function(res) {
+
+        var stop = res.data;
         nearestStopMapFeatures = MapService.addFeatures(stop);
 
         return reverseGeocode(stop.geometry.coordinates).then(function(point) {
