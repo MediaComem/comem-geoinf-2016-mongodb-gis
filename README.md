@@ -12,7 +12,11 @@
 
 * Install and run [MongoDB 3.x](https://www.mongodb.com/download-center#community)
 
-* Clone this repository.
+* Clone this repository:
+
+  ```
+  git clone https://github.com/MediaComem/comem-geoinf-2016-mongodb-gis.git
+  ```
 
 * Open a terminal in the repository and run the following commands:
 
