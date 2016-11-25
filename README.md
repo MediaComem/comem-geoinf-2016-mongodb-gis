@@ -6,7 +6,9 @@
 
 ## Getting started
 
-* Install [Node.js 6.x](https://nodejs.org/en/).
+* Install [Git](https://git-scm.com/downloads)
+
+* Install [Node.js 6.x](https://nodejs.org/en/)
 
 * Install and run [MongoDB 3.x](https://www.mongodb.com/download-center#community)
 
