@@ -40,7 +40,7 @@ Open a terminal in the repository and run the following commands (you may have t
 
 ```
 npm install -g nodemon
-nodemon bin/www
+DEBUG=mongodb-gis:* nodemon bin/www
 ```
 
 When running like this, the application will automatically restart when you edit a JavaScript file.
