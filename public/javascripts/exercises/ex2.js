@@ -41,6 +41,7 @@
       MapService.reset();
       delete ctrl.apiError;
       delete ctrl.startingPoint;
+      delete ctrl.nearestStop;
 
       FeaturesApiService.loadFeaturesByGeometryType('MultiLineString').then(MapService.addFeatures);
     });
