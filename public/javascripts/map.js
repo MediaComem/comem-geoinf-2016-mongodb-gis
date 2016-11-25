@@ -2,11 +2,21 @@
 
   var app = angular.module('mongodb-gis');
 
+  /**
+   * Service to manage the map, including:
+   *
+   * * adding/removing GeoJSON features;
+   * * drawing polygons;
+   * * detecting click events.
+   *
+   * This functionality is implemented with the OpenLayers library.
+   */
   app.factory('MapService', function(mapStyles, $rootScope) {
 
     var map,
         readyDeferred = Promise.pending();
 
+    // Prepare the layer on which features will be drawn.
     var featuresSource = new ol.source.Vector({});
     var featuresLayer = new ol.layer.Vector({
       source: featuresSource,
@@ -15,24 +25,36 @@
       }
     });
 
+    // Prepare the layer on which the user will be able to draw polygons.
     var drawSource = new ol.source.Vector({});
     var drawLayer = new ol.layer.Vector({
       source: drawSource
     });
 
+    // Prepare the draw interaction component.
     var drawInteraction = new ol.interaction.Draw({
       source: drawSource,
       type: 'Polygon'
     });
 
+    // Create the service.
     var service = {
+      // Event bus.
       events: $rootScope.$new()
     };
 
+    /**
+     * Returns a promise that will be resolved when the map is ready.
+     *
+     * @returns Promise
+     */
     service.ready = function() {
       return readyDeferred.promise;
     };
 
+    /**
+     * Clears all GeoJSON features and drawn shapes on the map.
+     */
     service.clear = function() {
       drawSource.clear();
       featuresSource.clear();
