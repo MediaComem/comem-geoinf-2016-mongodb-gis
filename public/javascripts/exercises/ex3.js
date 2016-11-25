@@ -19,7 +19,7 @@
     `;
   }
 
-  function controller(ExercisesService, FeaturesApiService, MapService) {
+  function controller(ExercisesService, $http, $log, MapService) {
 
     var ctrl = this;
 
@@ -43,7 +43,16 @@
 
     MapService.events.$on('drawend', function(event, feature) {
       if (ExercisesService.isExerciseRunning(ctrl)) {
-        FeaturesApiService.loadFeaturesWithinPolygon(feature.geometry).then(MapService.addFeatures).then(function(features) {
+
+        $log.debug('Fetching features within ' + JSON.stringify(feature.geometry));
+
+        $http({
+          url: '/api/within',
+          params: {
+            coordinates: JSON.stringify(feature.geometry.coordinates[0])
+          }
+        }).then(function(res) {
+          var features = MapService.addFeatures(res.data);
           ctrl.featuresCount = features.length;
         }).catch(function(err) {
           ctrl.apiError = err;

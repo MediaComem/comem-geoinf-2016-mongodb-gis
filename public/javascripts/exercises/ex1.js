@@ -19,7 +19,7 @@
     `;
   }
 
-  function controller(ExercisesService, FeaturesApiService, MapService) {
+  function controller(ExercisesService, $http, $log, MapService) {
 
     var ctrl = this;
 
@@ -43,7 +43,13 @@
 
     function loadFeatures() {
       MapService.clear();
-      FeaturesApiService.loadFeaturesByGeometryType(ctrl.filters.geometryType).then(MapService.addFeatures).catch(function(err) {
+      $log.debug('Fetching features of geometry type ' + ctrl.filters.geometryType);
+
+      $http({
+        url: '/api/geometryType/' + ctrl.filters.geometryType
+      }).then(function(res) {
+        MapService.addFeatures(res.data);
+      }).catch(function(err) {
         ctrl.apiError = err;
         return Promise.reject(err);
       });
