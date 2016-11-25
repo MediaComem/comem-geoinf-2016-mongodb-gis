@@ -9,7 +9,7 @@
 
     service.addressFromCoordinates = function(lonLat) {
       return $http({
-        url: 'http://nominatim.openstreetmap.org/reverse',
+        url: 'https://nominatim.openstreetmap.org/reverse',
         params: {
           format: 'json',
           lat: lonLat[1],
