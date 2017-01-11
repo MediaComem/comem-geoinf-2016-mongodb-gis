@@ -60,10 +60,18 @@
       featuresSource.clear();
     };
 
+    /**
+     * Resets the map to the specified configuration (also clears all GeoJSON features and drawn shapes).
+     *
+     * @param {Object} options
+     * @param {Boolean} options.draw - If true, the user will be able to draw polygons on the map.
+     */
     service.reset = function(options) {
 
+      // Clears all features and shapes.
       service.clear();
 
+      // Enable or disable the draw interaction component depending on the option.
       if (options && options.draw) {
         map.addInteraction(drawInteraction);
       } else {
@@ -71,23 +79,36 @@
       }
     };
 
-    service.addFeatures = function(features) {
-      if (!features) {
+    /**
+     * Adds the specified GeoJSON features (or feature collection) to the map.
+     * This function returns the ol.Feature objects that were actually added to the map.
+     *
+     * @param {Object|Object[]} geoJsonFeatures - The GeoJSON feature collection object or features array to add.
+     * @returns {ol.Feature[]} The features objects added to the map.
+     */
+    service.addFeatures = function(geoJsonFeatures) {
+      if (!geoJsonFeatures) {
         return;
       }
 
-      var mapFeatures = readFeatures(features);
-      featuresSource.addFeatures(mapFeatures);
-      return mapFeatures;
+      var olFeatures = readFeatures(geoJsonFeatures);
+      featuresSource.addFeatures(olFeatures);
+
+      return olFeatures;
     };
 
-    service.removeFeatures = function(features) {
-      if (!features) {
+    /**
+     * Removes the specified ol.Feature objects from the map.
+     *
+     * @param {ol.Feature[]} olFeatures - The feature object(s) to remove.
+     */
+    service.removeFeatures = function(olFeatures) {
+      if (!olFeatures) {
         return;
       }
 
-      _.each(_.isArray(features) ? features : [ features ], function(feature) {
-        featuresSource.removeFeature(feature);
+      _.each(_.isArray(olFeatures) ? olFeatures : [ olFeatures ], function(olFeature) {
+        featuresSource.removeFeature(olFeature);
       });
     };
 
